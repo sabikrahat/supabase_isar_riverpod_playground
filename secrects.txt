@@ -1,0 +1,6 @@
+Supabase Project Name: supabase_isar_riverpod_playground
+Reference ID: cyjrbubummqezxzryfre
+Database Password: @SupaBase123
+
+Project URL: https://cyjrbubummqezxzryfre.supabase.co
+API Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5anJidWJ1bW1xZXp4enJ5ZnJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTEyMzE2MTIsImV4cCI6MjAwNjgwNzYxMn0.X3BR9XeadIJBzxiPqf7vIZaHHI7IU7ybGw9kinaP144
