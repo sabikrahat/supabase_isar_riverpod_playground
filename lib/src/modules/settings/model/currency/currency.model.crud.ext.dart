@@ -18,14 +18,14 @@ extension CurrencyTrxExt on CurrencyProfile {
 }
 
 extension ListCurrencyTrxExt on List<CurrencyProfile> {
-  void saveAllSync() => db.write((_) => db.currencyProfiles.putAll(this));
+  void saveAllSync() => db.write((isar) => isar.currencyProfiles.putAll(this));
 
   Future<void> saveAll() async =>
-      await db.writeAsync((_) => db.currencyProfiles.putAll(this));
+      await db.writeAsync((isar) => isar.currencyProfiles.putAll(this));
 
   void deleteAllSync() =>
-      db.write((_) => db.currencyProfiles.deleteAll(map((e) => e.id).toList()));
+      db.write((isar) => isar.currencyProfiles.deleteAll(map((e) => e.id).toList()));
 
   Future<void> deleteAll() async => await db.writeAsync(
-      (_) => db.currencyProfiles.deleteAll(map((e) => e.id).toList()));
+      (isar) => isar.currencyProfiles.deleteAll(map((e) => e.id).toList()));
 }
