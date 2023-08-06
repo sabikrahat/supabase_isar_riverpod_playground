@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart' show kReleaseMode;
+import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
 import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:supabase_isar_riverpod_playground/src/config/constants.dart';
@@ -23,6 +23,7 @@ const _schemas = [AppSettingsSchema, CurrencyProfileSchema, MeasurementSchema];
 Future<void> openDB() async {
   await initDir();
   db = await Isar.openAsync(
+    engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
     schemas: _schemas,
     inspector: !kReleaseMode,
     directory: pt.isWeb ? '' : appDir.db.path,
@@ -31,6 +32,7 @@ Future<void> openDB() async {
 }
 
 void openDBSync(AppDir dir) => db = Isar.open(
+      engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
       schemas: _schemas,
       inspector: !kReleaseMode,
       directory: dir.db.path,
