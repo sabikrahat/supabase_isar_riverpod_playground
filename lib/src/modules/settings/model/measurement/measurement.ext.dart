@@ -1,30 +1,28 @@
 part of 'measurement.dart';
 
 extension MeasurementTrxExt on Measurement {
-  
   void saveSync() => db.write((_) => db.measurements.put(this));
 
   Future<void> save() async =>
-      await db.writeAsync((_) => db.measurements.put(this));
+      await db.writeAsync((isar) => isar.measurements.put(this));
 
-  bool deleteSync() => db.write((_) => db.measurements.delete(this.id));
+  bool deleteSync() => db.write((isar) => isar.measurements.delete(this.id));
 
   Future<bool> delete() async =>
-      await db.writeAsync((_) => db.measurements.delete(this.id));
+      await db.writeAsync((isar) => isar.measurements.delete(this.id));
 }
 
 extension ListMeasurementTrxExt on List<Measurement> {
-
-  void saveAllSync() => db.write((_) => db.measurements.putAll(this));
+  void saveAllSync() => db.write((isar) => isar.measurements.putAll(this));
 
   Future<void> saveAll() async =>
-      await db.writeAsync((db) => db.measurements.putAll(this));
+      await db.writeAsync((isar) => isar.measurements.putAll(this));
 
   void deleteAllSync() => db
-      .write((_) => db.measurements.deleteAll(map((e) => e.id).toList()));
+      .write((isar) => isar.measurements.deleteAll(map((e) => e.id).toList()));
 
   Future<void> deleteAll() async => await db.writeAsync(
-      (_) => db.measurements.deleteAll(map((e) => e.id).toList()));
+      (isar) => isar.measurements.deleteAll(map((e) => e.id).toList()));
 }
 
 extension MeasurementStringExt on String {

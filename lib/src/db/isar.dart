@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:supabase_isar_riverpod_playground/src/config/constants.dart';
@@ -23,24 +23,23 @@ const _schemas = [AppSettingsSchema, CurrencyProfileSchema, MeasurementSchema];
 Future<void> openDB() async {
   await initDir();
   db = await Isar.openAsync(
-    engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
     schemas: _schemas,
     inspector: !kReleaseMode,
-    directory: pt.isWeb ? '' : appDir.db.path,
     name: appName.toCamelWord,
+    directory: pt.isWeb ? '' : appDir.db.path,
+    engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
   );
 }
 
 void openDBSync(AppDir dir) => db = Isar.open(
-      engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
       schemas: _schemas,
-      inspector: !kReleaseMode,
       directory: dir.db.path,
+      inspector: !kReleaseMode,
       name: appName.toCamelWord,
+      engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
     );
 
 Future<void> initAppDatum() async {
-  log.i('Initiating App Data. $db');
   if (await db.currencyProfiles.where().countAsync() == 0) await currencyInit();
   if (await db.measurements.where().countAsync() == 0) await measurementInit();
   appSettings = await db.appSettings.getAsync(0) ?? AppSettings();

@@ -63,7 +63,7 @@ class AuthenticationView extends ConsumerWidget {
               onPressed: () async => await showDialog(
                 context: context,
                 barrierDismissible: false,
-                builder: (context) => const URLConfigPopup(),
+                builder: (_) => const URLConfigPopup(),
               ),
             ),
     );

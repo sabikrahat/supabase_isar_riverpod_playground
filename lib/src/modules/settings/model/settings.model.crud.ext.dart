@@ -1,13 +1,13 @@
 part of 'settings.model.dart';
 
 extension AppSettingsDBExt on AppSettings {
-  void saveSync() => db.write((_) => db.appSettings.put(this));
+  void saveSync() => db.write((isar) => isar.appSettings.put(this));
 
   Future<void> save() async =>
-      await db.writeAsync((_) => db.appSettings.put(this));
+      await db.writeAsync((isar) => isar.appSettings.put(this));
 
-  bool deleteSync() => db.write((_) => db.appSettings.delete(this.id));
+  bool deleteSync() => db.write((isar) => isar.appSettings.delete(this.id));
 
   Future<bool> delete() async =>
-      await db.writeAsync((_) => db.appSettings.delete(this.id));
+      await db.writeAsync((isar) => isar.appSettings.delete(this.id));
 }
