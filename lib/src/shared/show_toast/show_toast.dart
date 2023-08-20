@@ -10,9 +10,10 @@ void showTimerSnackbar(BuildContext context, String message,
         [int second = 3]) =>
     timerSnackbar(context, contentText: message, second: second);
 
-void showAwesomeSnackbar(
-    BuildContext context, String title, String message, MessageType messageType,
-    [int? second]) {
+void showAwesomeSnackbar(BuildContext context, String title, String message, MessageType messageType, [int? second]) {
+  // EasyLoading.dismiss();
+  if (EasyLoading.isShow) EasyLoading.dismiss();
+  //
   final snackBar = SnackBar(
     /// need to set following properties for best effect of awesome_snackbar_content
     elevation: 0,

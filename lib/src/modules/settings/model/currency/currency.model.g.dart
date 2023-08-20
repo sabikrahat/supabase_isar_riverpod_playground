@@ -15,16 +15,42 @@ extension GetCurrencyProfileCollection on Isar {
       this.collection();
 }
 
-const CurrencyProfileSchema = IsarCollectionSchema(
-  schema:
-      '{"name":"CurrencyProfile","idName":"id","properties":[{"name":"shortForm","type":"String"},{"name":"symbol","type":"String"},{"name":"name","type":"String"}]}',
+const CurrencyProfileSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'CurrencyProfile',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'shortForm',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'symbol',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'name',
+        type: IsarType.string,
+      ),
+    ],
+    indexes: [
+      IsarIndexSchema(
+        name: 'shortForm',
+        properties: [
+          "shortForm",
+        ],
+        unique: true,
+        hash: false,
+      ),
+    ],
+  ),
   converter: IsarObjectConverter<int, CurrencyProfile>(
     serialize: serializeCurrencyProfile,
     deserialize: deserializeCurrencyProfile,
     deserializeProperty: deserializeCurrencyProfileProp,
   ),
   embeddedSchemas: [],
-  //hash: 8872027640127961207,
 );
 
 @isarProtected
@@ -163,6 +189,41 @@ extension CurrencyProfileQueryUpdate on IsarQuery<CurrencyProfile> {
 
   _CurrencyProfileQueryUpdate get updateAll =>
       _CurrencyProfileQueryUpdateImpl(this);
+}
+
+class _CurrencyProfileQueryBuilderUpdateImpl
+    implements _CurrencyProfileQueryUpdate {
+  const _CurrencyProfileQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<CurrencyProfile, CurrencyProfile, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? shortForm = ignore,
+    Object? symbol = ignore,
+    Object? name = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (shortForm != ignore) 1: shortForm as String?,
+        if (symbol != ignore) 2: symbol as String?,
+        if (name != ignore) 3: name as String?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension CurrencyProfileQueryBuilderUpdate
+    on QueryBuilder<CurrencyProfile, CurrencyProfile, QOperations> {
+  _CurrencyProfileQueryUpdate get updateFirst =>
+      _CurrencyProfileQueryBuilderUpdateImpl(this, limit: 1);
+
+  _CurrencyProfileQueryUpdate get updateAll =>
+      _CurrencyProfileQueryBuilderUpdateImpl(this);
 }
 
 extension CurrencyProfileQueryFilter

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:supabase_isar_riverpod_playground/src/modules/authentication/api/authentication.api.dart';
 
 import '../../../../localization/loalization.dart';
 import '../../../../shared/animations_widget/animated_popup.dart';
@@ -57,7 +58,7 @@ class SignoutPopup extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () async => await spbsSignout(context),
             child: const Text('Confirm', style: TextStyle(color: Colors.red)),
           ),
         ],

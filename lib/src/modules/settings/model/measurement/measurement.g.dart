@@ -14,16 +14,46 @@ extension GetMeasurementCollection on Isar {
   IsarCollection<int, Measurement> get measurements => this.collection();
 }
 
-const MeasurementSchema = IsarCollectionSchema(
-  schema:
-      '{"name":"Measurement","idName":"id","properties":[{"name":"symbol","type":"String"},{"name":"unitOf","type":"String"},{"name":"system","type":"String"},{"name":"name","type":"String"}]}',
+const MeasurementSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'Measurement',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'symbol',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'unitOf',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'system',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'name',
+        type: IsarType.string,
+      ),
+    ],
+    indexes: [
+      IsarIndexSchema(
+        name: 'symbol',
+        properties: [
+          "symbol",
+        ],
+        unique: false,
+        hash: false,
+      ),
+    ],
+  ),
   converter: IsarObjectConverter<int, Measurement>(
     serialize: serializeMeasurement,
     deserialize: deserializeMeasurement,
     deserializeProperty: deserializeMeasurementProp,
   ),
   embeddedSchemas: [],
-  //hash: -7941228057637695733,
 );
 
 @isarProtected
@@ -173,6 +203,42 @@ extension MeasurementQueryUpdate on IsarQuery<Measurement> {
       _MeasurementQueryUpdateImpl(this, limit: 1);
 
   _MeasurementQueryUpdate get updateAll => _MeasurementQueryUpdateImpl(this);
+}
+
+class _MeasurementQueryBuilderUpdateImpl implements _MeasurementQueryUpdate {
+  const _MeasurementQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<Measurement, Measurement, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? symbol = ignore,
+    Object? unitOf = ignore,
+    Object? system = ignore,
+    Object? name = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (symbol != ignore) 1: symbol as String?,
+        if (unitOf != ignore) 2: unitOf as String?,
+        if (system != ignore) 3: system as String?,
+        if (name != ignore) 4: name as String?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension MeasurementQueryBuilderUpdate
+    on QueryBuilder<Measurement, Measurement, QOperations> {
+  _MeasurementQueryUpdate get updateFirst =>
+      _MeasurementQueryBuilderUpdateImpl(this, limit: 1);
+
+  _MeasurementQueryUpdate get updateAll =>
+      _MeasurementQueryBuilderUpdateImpl(this);
 }
 
 extension MeasurementQueryFilter

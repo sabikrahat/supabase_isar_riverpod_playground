@@ -120,7 +120,7 @@ class AuthForm extends StatelessWidget {
                     return 'Password is required';
                   }
                   if (notifier.isSignup && !v.isPassword) {
-                    return 'Password must be at least 8 characters';
+                    return 'Password must be at least 6 characters';
                   }
                   return null;
                 },

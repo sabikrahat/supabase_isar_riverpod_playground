@@ -14,16 +14,77 @@ extension GetAppSettingsCollection on Isar {
   IsarCollection<int, AppSettings> get appSettings => this.collection();
 }
 
-const AppSettingsSchema = IsarCollectionSchema(
-  schema:
-      '{"name":"AppSettings","idName":"id","properties":[{"name":"firstRun","type":"Bool"},{"name":"currency","type":"String"},{"name":"useSecureProtocol","type":"Bool"},{"name":"performanceOverlayEnable","type":"Bool"},{"name":"dateFormat","type":"String"},{"name":"timeFormat","type":"String"},{"name":"firstRunDateTime","type":"DateTime"},{"name":"fontFamily","type":"String"},{"name":"currencyFormat","type":"String"},{"name":"baseUrl","type":"String"},{"name":"theme","type":"Byte","enumMap":{"dark":0,"light":1}},{"name":"locale","type":"Byte","enumMap":{"arabic":0,"bengali":1,"english":2,"hindi":3,"urdu":4}}]}',
+const AppSettingsSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'AppSettings',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'firstRun',
+        type: IsarType.bool,
+      ),
+      IsarPropertySchema(
+        name: 'currency',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'useSecureProtocol',
+        type: IsarType.bool,
+      ),
+      IsarPropertySchema(
+        name: 'performanceOverlayEnable',
+        type: IsarType.bool,
+      ),
+      IsarPropertySchema(
+        name: 'dateFormat',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'timeFormat',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'firstRunDateTime',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'fontFamily',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'currencyFormat',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'baseUrl',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'theme',
+        type: IsarType.byte,
+        enumMap: {"dark": 0, "light": 1},
+      ),
+      IsarPropertySchema(
+        name: 'locale',
+        type: IsarType.byte,
+        enumMap: {
+          "arabic": 0,
+          "bengali": 1,
+          "english": 2,
+          "hindi": 3,
+          "urdu": 4
+        },
+      ),
+    ],
+    indexes: [],
+  ),
   converter: IsarObjectConverter<int, AppSettings>(
     serialize: serializeAppSettings,
     deserialize: deserializeAppSettings,
     deserializeProperty: deserializeAppSettingsProp,
   ),
   embeddedSchemas: [],
-  //hash: 7279101875082963396,
 );
 
 @isarProtected
@@ -325,6 +386,59 @@ extension AppSettingsQueryUpdate on IsarQuery<AppSettings> {
       _AppSettingsQueryUpdateImpl(this, limit: 1);
 
   _AppSettingsQueryUpdate get updateAll => _AppSettingsQueryUpdateImpl(this);
+}
+
+class _AppSettingsQueryBuilderUpdateImpl implements _AppSettingsQueryUpdate {
+  const _AppSettingsQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<AppSettings, AppSettings, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? firstRun = ignore,
+    Object? currency = ignore,
+    Object? useSecureProtocol = ignore,
+    Object? performanceOverlayEnable = ignore,
+    Object? dateFormat = ignore,
+    Object? timeFormat = ignore,
+    Object? firstRunDateTime = ignore,
+    Object? fontFamily = ignore,
+    Object? currencyFormat = ignore,
+    Object? baseUrl = ignore,
+    Object? theme = ignore,
+    Object? locale = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (firstRun != ignore) 1: firstRun as bool?,
+        if (currency != ignore) 2: currency as String?,
+        if (useSecureProtocol != ignore) 3: useSecureProtocol as bool?,
+        if (performanceOverlayEnable != ignore)
+          4: performanceOverlayEnable as bool?,
+        if (dateFormat != ignore) 5: dateFormat as String?,
+        if (timeFormat != ignore) 6: timeFormat as String?,
+        if (firstRunDateTime != ignore) 7: firstRunDateTime as DateTime?,
+        if (fontFamily != ignore) 8: fontFamily as String?,
+        if (currencyFormat != ignore) 9: currencyFormat as String?,
+        if (baseUrl != ignore) 10: baseUrl as String?,
+        if (theme != ignore) 11: theme as ThemeProfile?,
+        if (locale != ignore) 12: locale as LocaleProfile?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension AppSettingsQueryBuilderUpdate
+    on QueryBuilder<AppSettings, AppSettings, QOperations> {
+  _AppSettingsQueryUpdate get updateFirst =>
+      _AppSettingsQueryBuilderUpdateImpl(this, limit: 1);
+
+  _AppSettingsQueryUpdate get updateAll =>
+      _AppSettingsQueryBuilderUpdateImpl(this);
 }
 
 const _appSettingsTheme = {

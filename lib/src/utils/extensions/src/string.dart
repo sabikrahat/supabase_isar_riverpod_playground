@@ -5,7 +5,7 @@ extension StringUtils on String {
 
   bool get isPhone => _phoneRegularExpression.hasMatch(toLowerCase());
 
-  bool get isPassword => length >= 8;
+  bool get isPassword => length >= 6;
 
   bool get isUsername => !contains(' ') && length >= 6;
 

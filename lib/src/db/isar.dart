@@ -22,13 +22,21 @@ const _schemas = [AppSettingsSchema, CurrencyProfileSchema, MeasurementSchema];
 
 Future<void> openDB() async {
   await initDir();
-  db = await Isar.openAsync(
-    schemas: _schemas,
-    inspector: !kReleaseMode,
-    name: appName.toCamelWord,
-    directory: pt.isWeb ? '' : appDir.db.path,
-    engine: pt.isWeb ? IsarEngine.sqlite : IsarEngine.isar,
-  );
+  db = pt.isWeb
+      ? Isar.open(
+          schemas: _schemas,
+          inspector: !kReleaseMode,
+          name: appName.toCamelWord,
+          directory: '',
+          engine: IsarEngine.sqlite,
+        )
+      : await Isar.openAsync(
+          schemas: _schemas,
+          inspector: !kReleaseMode,
+          name: appName.toCamelWord,
+          directory: appDir.db.path,
+          engine: IsarEngine.isar,
+        );
 }
 
 void openDBSync(AppDir dir) => db = Isar.open(

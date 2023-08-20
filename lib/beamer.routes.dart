@@ -32,10 +32,10 @@ final routerDelegate = BeamerDelegate(
           child: HomeView(),
         );
       },
-      AppRoutes.signinRoute: (_, __, ___) {
+      AppRoutes.authenticationRoute: (_, __, ___) {
         return const BeamPage(
-          key: ValueKey(AppRoutes.signinRoute),
-          title: '$appName - Signin',
+          key: ValueKey(AppRoutes.authenticationRoute),
+          title: '$appName - Authentication',
           type: BeamPageType.fadeTransition,
           child: AuthenticationView(),
         );
@@ -89,12 +89,12 @@ final routerDelegate = BeamerDelegate(
     // ),
     BeamGuard(
       pathPatterns: AppRoutes.allAuthRequiredRoutes,
-      check: (_, __) => sbc.auth.currentUser == null,
-      beamToNamed: (_, __) => AppRoutes.signinRoute,
+      check: (_, __) => sbc.auth.currentUser != null,
+      beamToNamed: (_, __) => AppRoutes.authenticationRoute,
     ),
     BeamGuard(
-      pathPatterns: [AppRoutes.signinRoute],
-      check: (_, __) => sbc.auth.currentUser != null,
+      pathPatterns: [AppRoutes.authenticationRoute],
+      check: (_, __) => sbc.auth.currentUser == null,
       beamToNamed: (_, __) => AppRoutes.homeRoute,
     ),
   ],

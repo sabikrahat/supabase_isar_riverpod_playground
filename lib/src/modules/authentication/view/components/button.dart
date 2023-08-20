@@ -12,7 +12,7 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: const EdgeInsets.only(bottom: 15.0),
       child: ElevatedButton(
         style: context.theme.elevatedButtonTheme.style!.copyWith(
             minimumSize: MaterialStateProperty.all(const Size(180, 45))),

@@ -6,16 +6,15 @@ class AppRoutes {
   ///
   static const String homeRoute = '/home';
   static const String settingsRoute = '/settings';
-  static const String signinRoute = '/signin';
-  static const String signupRoute = '/signup';
+  static const String authenticationRoute = '/authentication';
   static const String maintenanceBreakRoute = '/maintenance-break';
   static const String serverDisconnectedRoute = '/server-disconnected';
 
   static const List<String> allRoutes = [
     homeRoute,
-    signinRoute,
+    authenticationRoute,
   ];
 
   static final List<String> allAuthRequiredRoutes = [...allRoutes]
-    ..remove(signinRoute);
+    ..remove(authenticationRoute);
 }
