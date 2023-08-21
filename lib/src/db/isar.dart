@@ -50,7 +50,7 @@ void openDBSync(AppDir dir) => db = Isar.open(
 Future<void> initAppDatum() async {
   if (await db.currencyProfiles.where().countAsync() == 0) await currencyInit();
   if (await db.measurements.where().countAsync() == 0) await measurementInit();
-  appSettings = await db.appSettings.getAsync(0) ?? AppSettings();
+  appSettings = await initAppSettings();
   appCurrency = (await db.currencyProfiles
       .where()
       .shortFormEqualTo(appSettings.currency)
@@ -59,6 +59,16 @@ Future<void> initAppDatum() async {
   log.i(
       'App Initiated with currency: ${appCurrency.shortForm} and measurements: ${appMeasurements.length} units');
   listenForAppConfig();
+}
+
+Future<AppSettings> initAppSettings() async {
+  final aps = await db.appSettings.getAsync(0);
+  if (aps == null) {
+    final settings = AppSettings();
+    await settings.save();
+    return settings;
+  }
+  return aps;
 }
 
 Future<void> currencyInit() async {

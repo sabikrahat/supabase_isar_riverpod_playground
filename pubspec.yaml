@@ -24,8 +24,8 @@ dependencies:
   image_cropper: ^5.0.0
   image_picker: ^1.0.2
   intl: ^0.18.0
-  isar: ^4.0.0-dev.10
-  isar_flutter_libs: ^4.0.0-dev.10
+  isar: ^4.0.0-dev.14
+  isar_flutter_libs: ^4.0.0-dev.14
   logger: ^2.0.1
   package_info_plus: ^4.1.0
   path: ^1.8.3

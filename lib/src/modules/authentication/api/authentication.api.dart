@@ -75,9 +75,10 @@ Future<void> spbsSignout(BuildContext context) async {
   try {
     await sbc.auth.signOut().then((_) async {
       log.i('User signout.');
-      log.i('Supabase auth signout: ${sbc.auth.currentUser?.toJson()}');
-      EasyLoading.dismiss();
       context.beamUpdate();
+      // db.close(deleteFromDisk: true);
+      // if (!pt.isWeb) await appDir.root.delete(recursive: true);
+      EasyLoading.dismiss();
       return;
     });
   } on SocketException catch (e) {
