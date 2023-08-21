@@ -10,8 +10,7 @@ import 'package:supabase_isar_riverpod_playground/src/utils/logger/logger_helper
 import '../../../shared/show_toast/show_toast.dart';
 import '../provider/authentication.provider.dart';
 
-Future<void> spbsSignup(BuildContext context, AuthProvider notifier,
-    [bool autoSignin = true]) async {
+Future<void> spbsSignup(BuildContext context, AuthProvider notifier) async {
   EasyLoading.show(status: 'Creating account...');
   try {
     await sbc.auth.signUp(
@@ -25,16 +24,14 @@ Future<void> spbsSignup(BuildContext context, AuthProvider notifier,
     ).then((r) {
       log.i('Supabase auth signup: ${r.user?.toJson()}');
       log.i('Supabase auth signup: ${r.session?.toJson()}');
-      if (!context.mounted) return;
-      showAwesomeSnackbar(context, 'Success!', 'Account created successfully.',
-          MessageType.success);
+      EasyLoading.dismiss();
+      context.beamUpdate();
       notifier.clear();
       return;
     });
   } on SocketException catch (e) {
     log.e('No Internet Connection. $e');
     if (!context.mounted) return;
-    context.beamUpdate();
     showAwesomeSnackbar(
         context, 'Failed!', 'No Internet Connection. $e', MessageType.failure);
     return;
@@ -55,10 +52,8 @@ Future<void> spbsSignin(BuildContext context, AuthProvider notifier) async {
     )
         .then((r) {
       log.i('Supabase auth signin: $r');
-      if (!context.mounted) return;
+      EasyLoading.dismiss();
       context.beamUpdate();
-      showAwesomeSnackbar(
-          context, 'Success!', 'Signed in successfully.', MessageType.success);
       notifier.clear();
       return;
     });
@@ -80,11 +75,9 @@ Future<void> spbsSignout(BuildContext context) async {
   try {
     await sbc.auth.signOut().then((_) async {
       log.i('User signout.');
-      if (!context.mounted) return;
-      context.pop();
+      log.i('Supabase auth signout: ${sbc.auth.currentUser?.toJson()}');
+      EasyLoading.dismiss();
       context.beamUpdate();
-      showAwesomeSnackbar(
-          context, 'Success!', 'Signed out successfully.', MessageType.success);
       return;
     });
   } on SocketException catch (e) {

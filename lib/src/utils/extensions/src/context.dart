@@ -75,7 +75,11 @@ extension BuildContextBeamerExtension on BuildContext {
 
   void beamBack() => Beamer.of(this).beamBack();
 
-  void beamUpdate() => Beamer.of(this).update();
+  void beamUpdate() {
+    urlHistory();
+    Beamer.of(this).update();
+    urlHistory();
+  }
 
   void beamDoubleBack() {
     Beamer.of(this).beamBack();

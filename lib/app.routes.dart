@@ -12,6 +12,7 @@ class AppRoutes {
 
   static const List<String> allRoutes = [
     homeRoute,
+    settingsRoute,
     authenticationRoute,
   ];
 

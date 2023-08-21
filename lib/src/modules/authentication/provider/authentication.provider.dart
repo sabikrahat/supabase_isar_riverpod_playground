@@ -64,7 +64,7 @@ class AuthProvider extends AutoDisposeFamilyNotifier<void, bool> {
 
   Future<void> signup(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
-    await spbsSignup(context, this, false);
+    await spbsSignup(context, this);
   }
 
   Future<void> signin(BuildContext context) async {
